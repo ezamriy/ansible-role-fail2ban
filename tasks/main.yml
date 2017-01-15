@@ -1,0 +1,22 @@
+---
+- name: Installing fail2ban package on Fedora
+  yum: name=fail2ban state=latest
+  when: ansible_distribution == 'Fedora'
+
+- name: Installing fail2ban package on EL
+  yum: name=fail2ban state=latest enablerepo=epel
+  when: ansible_distribution != 'Fedora'
+
+- name: Enabling sshd protection
+  copy:
+    src=10-sshd.conf dest=/etc/fail2ban/jail.d/10-sshd.conf
+    owner=root group=root mode=0644
+
+- name: Configuring ignoreip
+  lineinfile:
+    dest: /etc/fail2ban/jail.conf
+    regexp: '^ignoreip\s*?='
+    line: "ignoreip = {{ fail2ban_ignoreip }}"
+
+- name: Enabling fail2ban service
+  service: name=fail2ban enabled=yes state=restarted

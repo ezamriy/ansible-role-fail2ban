@@ -1,0 +1,21 @@
+galaxy_info:
+  author: Eugene Zamriy
+  description: Installs fail2ban and configures sshd protection on EL 7 and Fedora
+  company: CloudLinux
+  license: MIT
+  min_ansible_version: 1.9
+  platforms:
+    - name: EL
+      versions:
+        - 7
+    - name: Fedora
+      versions:
+        - 23
+        - 24
+        - 25
+  galaxy_tags:
+    - fail2ban
+    - networking
+    - security
+    - system
+dependencies: []
